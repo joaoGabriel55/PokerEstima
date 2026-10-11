@@ -1,10 +1,10 @@
 # 🃏 PokerEstima
 
-<img width="1440" alt="PokerEstima room after the reveal: player plaques with their votes, the average 7.2 and the split" src="docs/screenshots/room-desktop.png" />
-
-<img width="390" alt="The same room on a phone, beside a video call" src="docs/screenshots/room-mobile.png" />
+<img width="1440" alt="PokerEstima landing page: the headline 'Team agrees: it's an 8', a sample revealed round and the form to open a room" src="docs/screenshots/landing-desktop.png" />
 
 > Estimate your tasks with fun! A real-time planning poker application for agile teams. One link, no sign-up, and the room closes itself when you're done.
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5I528IC3A)
 
 ![Planning Poker](https://img.shields.io/badge/Planning-Poker-B4512F?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0wIDE4Yy00LjQxIDAtOC0zLjU5LTgtOHMzLjU5LTggOC04IDggMy41OSA4IDgtMy41OSA4LTggOHoiLz48L3N2Zz4=)
 ![Node.js](https://img.shields.io/badge/Node.js-22.5+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
@@ -25,6 +25,22 @@
 - ⏱️ **Ephemeral rooms** - Rooms close after 10 minutes; the facilitator can add 5 minutes once
 - ⌨️ **Keyboard shortcuts** - Type a card's number to vote; the facilitator reveals with <kbd>Shift</kbd>+<kbd>R</kbd>
 - 📱 **Built for the side of a call** - Works in a narrow window next to your video meeting
+
+---
+
+## 📸 Screenshots
+
+**Voting.** Plaques show who has voted, never what they voted.
+
+<img width="1440" alt="A room mid-round: three of five players have voted, their plaques show a blank yellow card, and the deck below has 5 selected" src="docs/screenshots/room-voting.png" />
+
+**After the reveal.** Every vote, the average, the nearest card and the split.
+
+<img width="1440" alt="The room after the reveal: five plaques with their votes, the average 8.4, nearest card 8 and the split" src="docs/screenshots/room-desktop.png" />
+
+**On a phone, in dark mode.** Narrow enough to sit beside your video call.
+
+<img width="390" alt="The revealed room on a phone in dark mode" src="docs/screenshots/room-mobile.png" />
 
 ---
 
@@ -191,6 +207,14 @@ Contributions are welcome! Feel free to:
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+---
+
+## ☕ Support
+
+PokerEstima is free, with no ads or sign-up. If it saved your refinement meeting, you can chip in any amount on Ko-fi to keep the rooms running.
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5I528IC3A)
 
 ---
 

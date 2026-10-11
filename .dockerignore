@@ -2,3 +2,20 @@ node_modules/
 
 # Local Netlify folder
 .netlify
+
+# Local AI agent tooling (contains symlinks the remote builder can't archive)
+.agents/
+.claude/
+.codex/
+.impeccable/
+.playwright-mcp/
+skills-lock.json
+
+# Local database and secrets
+data/
+.env
+
+# Repo-only files
+.git/
+.github/
+docs/

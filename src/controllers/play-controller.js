@@ -1,16 +1,30 @@
 import { randomUUID } from "crypto";
 import { MAX_NAME_LENGTH, MAX_ROOM_CAPACITY } from "../constants.js";
 import { getRoomExpiresAt, isRoomExpired } from "../helpers.js";
+import { FAQ } from "../faq.js";
+
+// Chat apps unfurl the shared room link with these, so the invite reads as one.
+const roomMeta = (room) => ({
+  pageTitle: `Estimate “${room.taskTitle}” | PokerEstima`,
+  pageDescription: "You're invited to a planning poker round. Type your name and vote, no sign-up needed.",
+  ogPath: `/play/${room.id}`,
+});
 
 const PlayController = (roomRepository, membersRepository) => ({
   index: (_, res) => {
     res.render("home", {
       layout: "layout",
-      pageTitle: "PokerEstima: free planning poker for teams on a call",
+      pageTitle: "Free Planning Poker Online, No Sign-Up | PokerEstima",
+      canonicalPath: "/",
+      isHome: true,
+      faq: FAQ,
     });
   },
   new: (_, res) => {
-    res.render("new", { layout: "layout" });
+    res.render("new", {
+      layout: "layout",
+      pageTitle: "Open a planning poker room | PokerEstima",
+    });
   },
   show: async (req, res) => {
     const roomId = req.params.id;
@@ -40,6 +54,7 @@ const PlayController = (roomRepository, membersRepository) => ({
       res.render("join", {
         layout: "layout",
         room,
+        ...roomMeta(room),
       });
       return;
     }
@@ -50,6 +65,7 @@ const PlayController = (roomRepository, membersRepository) => ({
       layout: "layout",
       inRoom: true,
       room,
+      ...roomMeta(room),
       userSession,
       roomUrl,
       remainingMs: Math.max(0, getRoomExpiresAt(room) - Date.now()),

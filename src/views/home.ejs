@@ -1,10 +1,11 @@
 <div class="home">
   <section class="hero" aria-labelledby="front-headline">
     <div class="hero-copy">
+      <p class="hero-kicker">Free online planning poker</p>
       <h1 class="hero-title" id="front-headline">Team agrees: it’s an <span class="figure is-stamped">8</span></h1>
       <p class="hero-lede">
-        Planning poker for teams on a call. Share one link, everyone votes in secret, the facilitator reveals,
-        and the room closes itself after 10 minutes. No sign-up, nothing to install.
+        Scrum poker for teams on a call. Share one link, everyone votes on story points in secret, the facilitator
+        reveals, and the room closes itself after 10 minutes. No sign-up, nothing to install.
       </p>
     </div>
 
@@ -116,6 +117,18 @@
         <p class="step-text">The facilitator reveals. Numbers stamp in with the average and the split, then talk it through or deal again.</p>
       </li>
     </ol>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 class="faq-title" id="faq-title">Questions teams ask</h2>
+    <div class="faq-list">
+      <% faq.forEach((item) => { %>
+        <details class="faq-item">
+          <summary class="faq-question"><%= item.question %></summary>
+          <p class="faq-answer"><%= item.answer %></p>
+        </details>
+      <% }) %>
+    </div>
   </section>
 
   <section class="support" aria-labelledby="support-title">

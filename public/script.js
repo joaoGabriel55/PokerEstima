@@ -65,7 +65,83 @@ document.addEventListener("DOMContentLoaded", () => {
   if (roomDataElement) {
     initializeRoom();
   }
+  initializeLandingDemo();
 });
+
+// Landing page: the front page's sample round. "Deal another round" draws new
+// votes around a random card and stamps them in, the way a real reveal does.
+const DEMO_NAMES = ["Marta", "Jordi", "Aina", "Pau", "Núria"];
+
+function initializeLandingDemo() {
+  const demo = document.getElementById("landing-demo");
+  const dealBtn = document.getElementById("dealBtn");
+  if (!demo || !dealBtn) return;
+
+  dealBtn.hidden = false;
+  dealBtn.addEventListener("click", () => {
+    const centre = 1 + Math.floor(Math.random() * 7);
+    const votes = DEMO_NAMES.map(() => {
+      const roll = Math.random();
+      const step = roll < 0.55 ? 0 : roll < 0.8 ? 1 : -1;
+      return cards[Math.min(cards.length - 1, Math.max(0, centre + step))].value;
+    });
+    renderLandingRound(votes);
+  });
+}
+
+function renderLandingRound(votes) {
+  const plaques = document.getElementById("demoPlaques");
+  const split = document.getElementById("demoSplit");
+  const headline = document.getElementById("front-headline");
+  const average = Math.round((votes.reduce((sum, v) => sum + v, 0) / votes.length) * 10) / 10;
+  const nearest = nearestCard(average);
+
+  plaques.innerHTML = DEMO_NAMES.map(
+    (name, i) => `
+      <li class="plaque is-revealed is-voted" style="--i: ${i}">
+        <span class="plaque-name">${escapeHtml(name)}</span>
+        <span class="plaque-state">Voted</span>
+        <span class="plaque-number">${votes[i]}</span>
+      </li>
+    `,
+  ).join("");
+
+  const counts = {};
+  votes.forEach((v) => (counts[v] = (counts[v] || 0) + 1));
+  const rows = Object.entries(counts).sort((a, b) => Number(a[0]) - Number(b[0]));
+  const topCount = Math.max(...rows.map(([, count]) => count));
+  let block = 0;
+  split.innerHTML = rows
+    .map(([value, count]) => {
+      const card = cards.find((c) => c.value === Number(value));
+      const blocks = Array.from({ length: count }, () => `<span class="split-block" style="--b: ${block++}"></span>`).join("");
+      return `
+        <li class="split-row ${count === topCount ? "is-top" : ""}" aria-label="${count} ${count === 1 ? "vote" : "votes"} for ${value}">
+          <span class="split-value">${value}<span class="split-value-emoji" aria-hidden="true">${card ? card.emoji : ""}</span></span>
+          <span class="split-blocks" aria-hidden="true">${blocks}</span>
+          <span class="split-count" aria-hidden="true">×${count}</span>
+        </li>
+      `;
+    })
+    .join("");
+
+  document.getElementById("demoAverage").textContent = average;
+  document.getElementById("demoNearest").innerHTML = `Nearest card <strong>${nearest.value}</strong>`;
+
+  const figure = (value) => `<span class="figure is-stamped">${value}</span>`;
+  const article = (value) => (value === 8 ? "an" : "a");
+  const top = rows.filter(([, count]) => count === topCount);
+  if (topCount === votes.length) {
+    headline.innerHTML = `Everyone agrees: it’s ${article(votes[0])} ${figure(votes[0])}`;
+  } else if (topCount >= 3 && top.length === 1) {
+    const value = Number(top[0][0]);
+    headline.innerHTML = `Team agrees: it’s ${article(value)} ${figure(value)}`;
+  } else {
+    headline.innerHTML = `Team split between ${figure(rows[0][0])} and ${figure(rows[rows.length - 1][0])}`;
+  }
+
+  announce(`New sample round. ${headline.textContent}. Average ${average}.`);
+}
 
 function escapeHtml(value) {
   return String(value)

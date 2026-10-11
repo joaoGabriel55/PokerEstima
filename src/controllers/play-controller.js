@@ -4,7 +4,10 @@ import { getRoomExpiresAt, isRoomExpired } from "../helpers.js";
 
 const PlayController = (roomRepository, membersRepository) => ({
   index: (_, res) => {
-    res.redirect("/play");
+    res.render("home", {
+      layout: "layout",
+      pageTitle: "PokerEstima: free planning poker for teams on a call",
+    });
   },
   new: (_, res) => {
     res.render("new", { layout: "layout" });
@@ -45,6 +48,7 @@ const PlayController = (roomRepository, membersRepository) => ({
     const roomUrl = `${req.protocol}://${req.get("host")}/play/${roomId}`;
     res.render("room", {
       layout: "layout",
+      inRoom: true,
       room,
       userSession,
       roomUrl,

@@ -98,7 +98,7 @@ app.locals.linkify = linkify;
 
 const playerController = PlayController(roomRepository, membersRepository);
 
-// Route: Home redirects to /play
+// Route: Landing page
 app.get("/", playerController.index);
 
 // Route: Create new room form

@@ -1,4 +1,5 @@
 import express, { json, static as serveStatic, urlencoded } from "express";
+import compression from "compression";
 import session from "express-session";
 import { createServer } from "http";
 import { dirname, join } from "path";
@@ -16,6 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+app.disable("x-powered-by");
 // Trust proxy for production environments (Fly.io, Heroku, etc.)
 app.set("trust proxy", 1);
 const server = createServer(app);
@@ -44,6 +46,8 @@ const io = new Server(server, {
 const { roomRepository, membersRepository } = respositories;
 
 const PORT = process.env.PORT || 4000;
+// Public origin used for canonical URLs, social cards and the sitemap.
+const SITE_URL = (process.env.SITE_URL || "https://poker-estima-app.fly.dev").replace(/\/$/, "");
 
 const CLEANUP_INTERVAL_MS = 60 * 1000; // Run cleanup every minute
 
@@ -80,6 +84,38 @@ const sessionMiddleware = session({
   },
 });
 
+app.use(compression());
+
+// Static assets only: never expose the project root (source, Dockerfile, README).
+app.use(
+  "/public",
+  serveStatic(join(__dirname, "public"), {
+    // script.js and styles.css aren't fingerprinted, so keep their cache short;
+    // fonts never change.
+    maxAge: "1h",
+    setHeaders: (res, path) => {
+      if (path.endsWith(".woff2")) {
+        res.setHeader("Cache-Control", "public, max-age=2592000");
+      }
+    },
+  }),
+);
+
+app.get("/robots.txt", (_, res) => {
+  res.type("text/plain").send(`User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+});
+
+app.get("/sitemap.xml", (_, res) => {
+  res
+    .type("application/xml")
+    .send(
+      `<?xml version="1.0" encoding="UTF-8"?>\n` +
+        `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+        `  <url><loc>${SITE_URL}/</loc></url>\n` +
+        `</urlset>\n`,
+    );
+});
+
 app.use(sessionMiddleware);
 
 // Share session with Socket.IO using express-socket.io-session
@@ -88,13 +124,19 @@ io.use(sharedSession(sessionMiddleware, { autoSave: true }));
 app.use(json());
 app.use(urlencoded({ extended: true }));
 
-// Serve static files
-app.use(serveStatic(join(__dirname)));
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "src/views"));
 app.use(ejsLayouts);
 app.set("layout", "layout");
 app.locals.linkify = linkify;
+app.locals.siteUrl = SITE_URL;
+
+// Rooms are private and expire within minutes: keep them, and the forms that
+// lead to them, out of search results while still letting chat apps unfurl them.
+app.use(["/play", "/register"], (_, res, next) => {
+  res.set("X-Robots-Tag", "noindex, follow");
+  next();
+});
 
 const playerController = PlayController(roomRepository, membersRepository);
 

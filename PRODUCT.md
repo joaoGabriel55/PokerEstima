@@ -27,7 +27,7 @@ Zero-friction and ephemeral. No accounts, no workspace, no history: one link, a 
 
 ## Capabilities and Constraints
 
-- Landing page at `/`: explains the product with a labelled sample round and opens a room directly (name + task title); the full create form (with description/links) stays at `/play`.
+- Landing page at `/`: explains the product with a labelled sample round and opens a room directly (name + task title); the full create form (with description/links) stays at `/play`. The landing ends with a "Questions teams ask" FAQ (`src/faq.js`) before the support note.
 - Create room (name, task title, optional description/links) → shareable `/play/:id` link → join with a name.
 - Real-time member list with "has voted" indicators; votes hidden server-side until reveal (no anchoring).
 - Fixed deck: 0, 1, 2, 3, 5, 8, 13, 20, 40, 100, each with an emoji and label (😴 No effort … 💀 Epic!).

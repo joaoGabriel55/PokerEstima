@@ -46,8 +46,12 @@ Votes stay hidden until reveal: always send member data to clients through `getS
 
 ### Client
 
-`public/script.js` is a single vanilla-JS file with no bundler. It defines the card deck (0–100 with emojis), renders the UI, and handles every socket event. The Socket.IO client loads from a CDN in `layout.ejs`. The project root is served statically, so assets are referenced as `/public/...`. Views use `express-ejs-layouts` with `src/views/layout.ejs` as the layout.
+`public/script.js` is a single vanilla-JS file with no bundler. It defines the card deck (0–100 with emojis), renders the UI, and handles every socket event. The Socket.IO client loads from a CDN in `layout.ejs`, on room pages only. Only `public/` is served statically, at `/public/...`. Views use `express-ejs-layouts` with `src/views/layout.ejs` as the layout.
 
 ## Deployment
 
-Pushes to `main` deploy to Fly.io (`poker-estima-app`, region `gru`) through `.github/workflows/fly-deploy.yml`. SQLite persists on the `sqlite_data` volume mounted at `/data` (`DATABASE_PATH=/data/app.db`). The app listens on `PORT` (default 4000). Optional env vars: `SECRET_KEY` (session secret; also turns on secure cookies) and `CORS_ORIGIN`.
+Pushes to `main` deploy to Fly.io (`poker-estima-app`, region `gru`) through `.github/workflows/fly-deploy.yml`. SQLite persists on the `sqlite_data` volume mounted at `/data` (`DATABASE_PATH=/data/app.db`). The app listens on `PORT` (default 4000). Optional env vars: `SECRET_KEY` (session secret; also turns on secure cookies), `CORS_ORIGIN`, and `SITE_URL` (public origin for canonical URLs, social cards, `robots.txt` and `sitemap.xml`; defaults to `https://poker-estima-app.fly.dev`).
+
+## SEO
+
+Per-page `<title>`, description and Open Graph tags come from `pageTitle` / `pageDescription` / `canonicalPath` / `ogPath` locals rendered in `layout.ejs`. The home page also emits WebApplication + FAQPage JSON-LD built from `src/faq.js`, which is the single source for the visible FAQ. Everything under `/play` and `/register` is sent with `X-Robots-Tag: noindex`. `public/og-image.png` is the 1200×630 social card.

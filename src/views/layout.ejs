@@ -5,8 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#b4512f" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#6a2b16" media="(prefers-color-scheme: dark)" />
-    <title><%= typeof pageTitle !== "undefined" ? pageTitle : "PokerEstima" %></title>
-    <meta name="description" content="Free planning poker for teams on a call. One link, no sign-up, votes hidden until the reveal, and the room closes itself after 10 minutes." />
+    <%
+      const seoTitle = typeof pageTitle !== "undefined" ? pageTitle : "PokerEstima";
+      const seoDescription = typeof pageDescription !== "undefined" ? pageDescription : "Free online planning poker (scrum poker) for remote teams. Share one link, vote on story points in secret, reveal together. No sign-up, nothing to install.";
+      const seoUrl = siteUrl + (typeof ogPath !== "undefined" ? ogPath : typeof canonicalPath !== "undefined" ? canonicalPath : "/");
+    %>
+    <title><%= seoTitle %></title>
+    <meta name="description" content="<%= seoDescription %>" />
+    <% if (typeof canonicalPath !== "undefined") { %>
+      <link rel="canonical" href="<%= siteUrl + canonicalPath %>" />
+    <% } %>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PokerEstima" />
+    <meta property="og:title" content="<%= seoTitle %>" />
+    <meta property="og:description" content="<%= seoDescription %>" />
+    <meta property="og:url" content="<%= seoUrl %>" />
+    <meta property="og:image" content="<%= siteUrl %>/public/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PokerEstima: free planning poker for teams on a call" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <% if (typeof isHome !== "undefined" && isHome) { %>
+      <script type="application/ld+json"><%- JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          name: "PokerEstima",
+          url: siteUrl + "/",
+          description: seoDescription,
+          applicationCategory: "BusinessApplication",
+          operatingSystem: "Any (web browser)",
+          browserRequirements: "Requires JavaScript",
+          isAccessibleForFree: true,
+          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+          featureList: [
+            "Votes hidden until the facilitator reveals",
+            "No sign-up or install",
+            "Up to 10 people per room",
+            "Average, nearest card and vote split after the reveal",
+            "Rooms delete themselves after 10 minutes"
+          ],
+          screenshot: siteUrl + "/public/og-image.png"
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: { "@type": "Answer", text: item.answer }
+          }))
+        }
+      ]).replace(/</g, "\\u003c") %></script>
+    <% } %>
     <script>
       // Theme before first paint: follow the system unless the rail toggle chose one.
       // A choice that matches the system is forgotten, so the page follows it again.
@@ -67,9 +119,12 @@
       })();
     </script>
     <link rel="icon" href="/public/flag.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
     <link rel="preload" href="/public/fonts/marcellus-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/public/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
+    <% if (typeof inRoom !== "undefined" && inRoom) { %>
+      <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
+    <% } %>
     <link rel="stylesheet" href="/public/styles.css" />
   </head>
   <body>

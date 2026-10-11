@@ -1,0 +1,140 @@
+<div class="home">
+  <section class="hero" aria-labelledby="front-headline">
+    <div class="hero-copy">
+      <h1 class="hero-title" id="front-headline">Team agrees: it’s an <span class="figure is-stamped">8</span></h1>
+      <p class="hero-lede">
+        Planning poker for teams on a call. Share one link, everyone votes in secret, the facilitator reveals,
+        and the room closes itself after 10 minutes. No sign-up, nothing to install.
+      </p>
+    </div>
+
+    <section class="open" id="open" aria-labelledby="open-title">
+      <h2 class="open-title" id="open-title">Open a room</h2>
+      <form class="form" method="post" action="/register">
+        <div class="field">
+          <label class="field-label" for="couponName">Your name</label>
+          <input type="text" id="couponName" name="name" class="input" placeholder="e.g. Marta" required maxlength="40" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label class="field-label" for="couponTask">Task title</label>
+          <input type="text" id="couponTask" name="taskTitle" class="input" placeholder="e.g. Implement user authentication" required autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-wide">Open a room</button>
+        <p class="open-note">You get the link to share straight away. <a href="/play">Add a description or links</a></p>
+      </form>
+    </section>
+
+    <figure class="photo" id="landing-demo">
+      <ul class="plaques photo-plaques" id="demoPlaques" aria-label="Sample table">
+        <li class="plaque is-revealed is-voted" style="--i: 0"><span class="plaque-name">Marta</span><span class="plaque-state">Voted</span><span class="plaque-number">8</span></li>
+        <li class="plaque is-revealed is-voted" style="--i: 1"><span class="plaque-name">Jordi</span><span class="plaque-state">Voted</span><span class="plaque-number">8</span></li>
+        <li class="plaque is-revealed is-voted" style="--i: 2"><span class="plaque-name">Aina</span><span class="plaque-state">Voted</span><span class="plaque-number">5</span></li>
+        <li class="plaque is-revealed is-voted" style="--i: 3"><span class="plaque-name">Pau</span><span class="plaque-state">Voted</span><span class="plaque-number">8</span></li>
+        <li class="plaque is-revealed is-voted" style="--i: 4"><span class="plaque-name">Núria</span><span class="plaque-state">Voted</span><span class="plaque-number">13</span></li>
+      </ul>
+
+      <div class="results-body photo-results">
+        <div class="average">
+          <span class="average-label">Average</span>
+          <span class="average-value" id="demoAverage">8.4</span>
+          <span class="average-nearest" id="demoNearest">Nearest card <strong>8</strong></span>
+        </div>
+        <ul class="split" id="demoSplit" aria-label="The split">
+          <li class="split-row" aria-label="1 vote for 5"><span class="split-value">5<span class="split-value-emoji" aria-hidden="true">🤓</span></span><span class="split-blocks" aria-hidden="true"><span class="split-block"></span></span><span class="split-count" aria-hidden="true">×1</span></li>
+          <li class="split-row is-top" aria-label="3 votes for 8"><span class="split-value">8<span class="split-value-emoji" aria-hidden="true">💪</span></span><span class="split-blocks" aria-hidden="true"><span class="split-block"></span><span class="split-block"></span><span class="split-block"></span></span><span class="split-count" aria-hidden="true">×3</span></li>
+          <li class="split-row" aria-label="1 vote for 13"><span class="split-value">13<span class="split-value-emoji" aria-hidden="true">🧙</span></span><span class="split-blocks" aria-hidden="true"><span class="split-block"></span></span><span class="split-count" aria-hidden="true">×1</span></li>
+        </ul>
+      </div>
+
+      <figcaption class="photo-caption">
+        <span>A sample round. The names and votes are made up.</span>
+        <button class="btn btn-quiet btn-compact" type="button" id="dealBtn" hidden>Deal another round</button>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="notes" aria-label="What makes it different">
+    <article class="note">
+      <h2 class="note-title">Votes stay secret</h2>
+      <div class="note-figure" aria-hidden="true">
+        <span class="plaque plaque-mini"><span class="plaque-name">Aina</span><span class="plaque-state">Thinking</span><span class="plaque-number"></span></span>
+        <span class="plaque plaque-mini is-voted"><span class="plaque-name">Pau</span><span class="plaque-state">Voted</span><span class="plaque-number"></span></span>
+      </div>
+      <p class="note-text">
+        Everyone sees who has voted, never what. The numbers appear only when the facilitator reveals, so nobody
+        anchors on the first or loudest estimate.
+      </p>
+    </article>
+
+    <article class="note">
+      <h2 class="note-title">The room clears itself</h2>
+      <div class="note-figure" aria-hidden="true">
+        <span class="countdown"><span class="countdown-label">Closes in</span><span class="countdown-value">10:00</span></span>
+      </div>
+      <p class="note-text">
+        Rooms close after 10 minutes, or 30 seconds after the last person leaves. No accounts, no history, nothing
+        left behind.
+      </p>
+    </article>
+  </section>
+
+  <section class="inside" aria-labelledby="inside-title">
+    <header class="inside-head">
+      <h2 class="inside-title" id="inside-title">How a round goes</h2>
+      <p class="inside-meta">Built for the side of a call: it works in a 400px window next to Meet, Zoom or Teams.</p>
+    </header>
+    <ol class="steps">
+      <li class="step">
+        <div class="step-figure" aria-hidden="true">
+          <span class="step-input">Refactor the login page</span>
+        </div>
+        <h3 class="step-title">Name the task</h3>
+        <p class="step-text">Type your name and the task. Paste a Jira link in the description if the team needs it.</p>
+      </li>
+      <li class="step">
+        <div class="step-figure" aria-hidden="true">
+          <span class="step-link">pokerestima…/play/4f2a</span>
+          <span class="step-copy">Copy</span>
+        </div>
+        <h3 class="step-title">Share the link</h3>
+        <p class="step-text">Drop it in the call chat. Up to 10 people type a name and take a seat.</p>
+      </li>
+      <li class="step">
+        <div class="step-figure step-cards" aria-hidden="true">
+          <span class="step-card">3</span>
+          <span class="step-card is-picked">5</span>
+          <span class="step-card">8</span>
+        </div>
+        <h3 class="step-title">Tap a card</h3>
+        <p class="step-text">One tap is the vote. Change your mind until the reveal, or type the number on your keyboard.</p>
+      </li>
+      <li class="step">
+        <div class="step-figure" aria-hidden="true">
+          <span class="plaque plaque-mini is-revealed is-voted"><span class="plaque-name">Jordi</span><span class="plaque-state">Voted</span><span class="plaque-number">5</span></span>
+        </div>
+        <h3 class="step-title">Reveal and talk</h3>
+        <p class="step-text">The facilitator reveals. Numbers stamp in with the average and the split, then talk it through or deal again.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="support" aria-labelledby="support-title">
+    <h2 class="support-title" id="support-title">Keep the rooms open</h2>
+    <p class="support-text">
+      PokerEstima is made by one person. It’s free to use, open source and has no ads. If it saved your
+      refinement meeting, you can chip in any amount on Ko-fi to keep the rooms running.
+    </p>
+    <div class="support-actions">
+      <div class="kofi">
+        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support me on Ko-fi', '#8073f5', 'O5I528IC3A');kofiwidget2.draw();</script>
+        <noscript><a class="btn btn-primary" href="https://ko-fi.com/O5I528IC3A">Support me on Ko-fi</a></noscript>
+      </div>
+      <a class="btn btn-quiet" href="https://github.com/joaoGabriel55/PokerEstima">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z" />
+        </svg>
+        Read the code on GitHub
+      </a>
+    </div>
+  </section>
+</div>

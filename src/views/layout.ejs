@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#b4512f" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#6a2b16" media="(prefers-color-scheme: dark)" />
-    <title>PokerEstima</title>
+    <title><%= typeof pageTitle !== "undefined" ? pageTitle : "PokerEstima" %></title>
+    <meta name="description" content="Free planning poker for teams on a call. One link, no sign-up, votes hidden until the reveal, and the room closes itself after 10 minutes." />
     <script>
       // Theme before first paint: follow the system unless the rail toggle chose one.
       // A choice that matches the system is forgotten, so the page follows it again.
@@ -74,12 +75,22 @@
   <body>
     <header class="rail">
       <div class="rail-inner">
-        <a class="wordmark" href="/play" aria-label="PokerEstima, start a new room">
+        <a class="wordmark" href="/" aria-label="PokerEstima home">
           <img class="wordmark-flag" src="/public/flag.svg" alt="" width="36" height="24" />
           <span class="wordmark-name">PokerEstima</span>
         </a>
         <p class="rail-tagline">Estimate your tasks with fun!</p>
         <div class="rail-slot"><%- defineContent('rail') %></div>
+        <% if (typeof inRoom === "undefined" || !inRoom) { %>
+          <a class="rail-support" href="https://ko-fi.com/O5I528IC3A" target="_blank" rel="noopener" aria-label="Support PokerEstima on Ko-fi">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3.5 8h13v5.5a5.5 5.5 0 0 1-5.5 5.5H9a5.5 5.5 0 0 1-5.5-5.5z" />
+              <path d="M16.5 10H18a2.75 2.75 0 0 1 0 5.5h-1.5" />
+              <path d="M10 15.75s-2.75-1.6-2.75-3.4a1.4 1.4 0 0 1 2.75-.55 1.4 1.4 0 0 1 2.75.55c0 1.8-2.75 3.4-2.75 3.4z" fill="currentColor" stroke="none" />
+            </svg>
+            <span class="rail-support-label">Support on Ko-fi</span>
+          </a>
+        <% } %>
         <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme">
           <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
             <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" />

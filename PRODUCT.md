@@ -27,6 +27,7 @@ Zero-friction and ephemeral. No accounts, no workspace, no history: one link, a 
 
 ## Capabilities and Constraints
 
+- Landing page at `/`: explains the product with a labelled sample round and opens a room directly (name + task title); the full create form (with description/links) stays at `/play`.
 - Create room (name, task title, optional description/links) → shareable `/play/:id` link → join with a name.
 - Real-time member list with "has voted" indicators; votes hidden server-side until reveal (no anchoring).
 - Fixed deck: 0, 1, 2, 3, 5, 8, 13, 20, 40, 100, each with an emoji and label (😴 No effort … 💀 Epic!).
@@ -39,6 +40,7 @@ Zero-friction and ephemeral. No accounts, no workspace, no history: one link, a 
 - Identity is session-cookie based (no login); session cookies last 10 minutes.
 - Server-rendered EJS + vanilla JS, no bundler; deployed on Fly.io with SQLite.
 - No advertising: the AdSense sidebar was removed (2026-10-04) so the room stays usable beside a video call.
+- Support: the maintainer's Ko-fi widget and a GitHub link appear in the landing page's support note; a compact "Support on Ko-fi" link sits in the top rail on the landing, create and join pages (added 2026-10-10). Never in rooms.
 - Open: whether the task title can be edited per round (currently fixed at room creation); no custom decks.
 
 ## Brand Commitments
